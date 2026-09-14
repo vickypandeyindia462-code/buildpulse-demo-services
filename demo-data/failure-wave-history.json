@@ -1,0 +1,13 @@
+{
+  "synthetic": true,
+  "purpose": "Generate repeatable GitHub Actions history for the BuildPulse failed-jobs workspace.",
+  "waves": [
+    {
+      "wave": 2,
+      "label": "verification retry after triage",
+      "services": ["loan-service", "payments-api", "api-gateway", "identity-service"],
+      "expected_result": "one controlled failed job per service",
+      "operator_note": "No production system or customer data is involved."
+    }
+  ]
+}
