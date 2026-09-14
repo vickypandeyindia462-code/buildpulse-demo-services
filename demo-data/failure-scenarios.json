@@ -1,0 +1,54 @@
+[
+  {
+    "id": "BP-DEMO-001",
+    "service": "loan-service",
+    "title": "Connection pool configuration drift",
+    "symptom": "test_pool_matches_runtime_config fails: expected 60, got 40",
+    "classification": "configuration-drift",
+    "root_cause": "connection_pool.MAX_CONNECTIONS and config.CONNECTION_POOL_MAX diverged",
+    "safe_fix": "Import the pool maximum from src.config instead of declaring a second value",
+    "verification": ["pytest loan-service/tests -q", "check pool saturation at 54/60"],
+    "kb": "docs/kb/connection-pool-saturation.md",
+    "severity": "high",
+    "synthetic": true
+  },
+  {
+    "id": "BP-DEMO-002",
+    "service": "payments-api",
+    "title": "Unsafe retry of a completed reservation",
+    "symptom": "duplicate payment reservations appear after a client timeout",
+    "classification": "idempotency-regression",
+    "root_cause": "retry path did not reuse the Idempotency-Key ledger entry",
+    "safe_fix": "Return the prior reservation for an identical idempotency key and payload",
+    "verification": ["pytest payments-api/tests -q", "repeat a reservation with the same key"],
+    "kb": "docs/kb/idempotency-and-retries.md",
+    "severity": "critical",
+    "synthetic": true
+  },
+  {
+    "id": "BP-DEMO-003",
+    "service": "api-gateway",
+    "title": "Correlation header dropped",
+    "symptom": "upstream logs cannot be joined to the incoming request",
+    "classification": "observability-contract",
+    "root_cause": "X-Correlation-ID was not copied to upstream headers",
+    "safe_fix": "Validate and propagate the header, generating one when invalid or absent",
+    "verification": ["pytest api-gateway/tests -q"],
+    "kb": "docs/kb/correlation-ids.md",
+    "severity": "medium",
+    "synthetic": true
+  },
+  {
+    "id": "BP-DEMO-004",
+    "service": "identity-service",
+    "title": "Expired token accepted at boundary",
+    "symptom": "token with exp equal to current time passes validation",
+    "classification": "authentication-boundary",
+    "root_cause": "expiry comparison used less-than instead of less-than-or-equal",
+    "safe_fix": "Reject exp <= current time and retain constant-time signature comparison",
+    "verification": ["pytest identity-service/tests -q"],
+    "kb": "docs/kb/token-validation.md",
+    "severity": "critical",
+    "synthetic": true
+  }
+]

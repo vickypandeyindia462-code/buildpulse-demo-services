@@ -1,0 +1,6 @@
+[
+  {"id":"INC-2407","service":"loan-service","started_at":"2026-07-18T09:12:00Z","duration_minutes":31,"severity":"SEV-2","signal":"dependency timeout rate > 8%","cause":"pool saturation during application batch","mitigation":"reduced worker concurrency and raised pool capacity","status":"resolved","synthetic":true},
+  {"id":"INC-2411","service":"payments-api","started_at":"2026-08-02T14:40:00Z","duration_minutes":18,"severity":"SEV-1","signal":"duplicate reservation alert","cause":"non-idempotent timeout retry","mitigation":"disabled retry path and replayed reconciliation","status":"resolved","synthetic":true},
+  {"id":"INC-2415","service":"api-gateway","started_at":"2026-08-20T05:25:00Z","duration_minutes":47,"severity":"SEV-3","signal":"trace completeness < 80%","cause":"correlation header dropped by route adapter","mitigation":"restored header propagation","status":"resolved","synthetic":true},
+  {"id":"INC-2420","service":"identity-service","started_at":"2026-09-03T19:06:00Z","duration_minutes":12,"severity":"SEV-2","signal":"expired-token canary failed","cause":"expiry boundary regression","mitigation":"rolled back validator release","status":"resolved","synthetic":true}
+]
