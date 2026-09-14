@@ -8,6 +8,13 @@
       "services": ["loan-service", "payments-api", "api-gateway", "identity-service"],
       "expected_result": "one controlled failed job per service",
       "operator_note": "No production system or customer data is involved."
+    },
+    {
+      "wave": 3,
+      "label": "final pre-remediation reproduction",
+      "services": ["loan-service", "payments-api", "api-gateway", "identity-service"],
+      "expected_result": "one controlled failed job per service",
+      "operator_note": "This final reproduction establishes three historical failures for every service."
     }
   ]
 }
