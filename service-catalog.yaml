@@ -1,0 +1,37 @@
+version: 1
+repository: buildpulse-demo-services
+environment: synthetic-demo
+services:
+  - id: loan-service
+    name: Loan Service
+    path: loan-service
+    tier: critical
+    primary_owner: Meera Kulkarni
+    backup_owner: Arjun Rao
+    team: Lending Platform
+    depends_on: [payments-api, identity-service]
+    runbooks: [docs/runbooks/loan-service-recovery.md]
+  - id: payments-api
+    name: Payments API
+    path: payments-api
+    tier: critical
+    primary_owner: Dev Shah
+    backup_owner: Kavya Thomas
+    team: Payments Platform
+    depends_on: [api-gateway]
+  - id: api-gateway
+    name: API Gateway
+    path: api-gateway
+    tier: high
+    primary_owner: Jose Nair
+    backup_owner: Priya Menon
+    team: Developer Platform
+    depends_on: [identity-service]
+  - id: identity-service
+    name: Identity Service
+    path: identity-service
+    tier: critical
+    primary_owner: Sandeep Batra
+    backup_owner: Nisha Kapoor
+    team: Core Services
+    depends_on: []

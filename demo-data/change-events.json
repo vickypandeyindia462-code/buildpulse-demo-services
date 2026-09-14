@@ -1,0 +1,22 @@
+[
+  {
+    "pr_number": 42,
+    "title": "Increase Loan Service connection-pool capacity",
+    "service": "loan-service",
+    "changed_files": ["loan-service/src/connection_pool.py", "loan-service/src/config.py"],
+    "risk_signals": ["critical-service", "resilience-configuration", "downstream-payments-dependency"],
+    "required_reviewers": ["meera-kulkarni-demo", "arjun-rao-demo"],
+    "test_status": "pending",
+    "synthetic": true
+  },
+  {
+    "pr_number": 43,
+    "title": "Document API Gateway retry headers",
+    "service": "api-gateway",
+    "changed_files": ["api-gateway/README.md"],
+    "risk_signals": ["documentation-only"],
+    "required_reviewers": ["jose-nair-demo"],
+    "test_status": "not-required",
+    "synthetic": true
+  }
+]

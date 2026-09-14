@@ -1,0 +1,7 @@
+# All identities and ownership below are synthetic demo data.
+/loan-service/ @meera-kulkarni-demo @arjun-rao-demo
+/payments-api/ @dev-shah-demo @kavya-thomas-demo
+/api-gateway/ @jose-nair-demo @priya-menon-demo
+/identity-service/ @sandeep-batra-demo @nisha-kapoor-demo
+/docs/ @buildpulse-demo-maintainers
+/service-catalog.yaml @buildpulse-demo-maintainers
