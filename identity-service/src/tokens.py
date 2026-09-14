@@ -2,4 +2,8 @@
 
 
 def validate(token: str) -> bool:
-    return token.startswith("demo-")
+    """Accept a demo token only when it includes a non-empty subject."""
+    if not token.startswith("demo-"):
+        return False
+    subject = token.removeprefix("demo-").strip()
+    return bool(subject)
