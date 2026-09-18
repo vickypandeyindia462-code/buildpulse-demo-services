@@ -1,0 +1,50 @@
+name: AI Operations Demo Scenarios
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: Failure scenario for the BuildPulse demonstration
+        type: choice
+        required: true
+        default: transient-timeout
+        options:
+          - transient-timeout
+          - deterministic-config
+          - healthy
+
+permissions:
+  contents: read
+
+jobs:
+  transient-infrastructure-recovery:
+    if: inputs.scenario == 'transient-timeout'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Simulate temporary dependency timeout
+        shell: bash
+        run: |
+          if [ "${GITHUB_RUN_ATTEMPT}" -eq 1 ]; then
+            echo "Error: dependency registry returned 503 Service Unavailable"
+            echo "Request timed out while downloading the build artifact"
+            exit 1
+          fi
+          echo "Temporary dependency recovered on controlled rerun"
+
+  loan-service-configuration-validation:
+    if: inputs.scenario == 'deterministic-config'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate Loan Service configuration contract
+        shell: bash
+        run: |
+          echo "AssertionError: expected pool capacity 30, got 45"
+          echo "Configuration contract failed; rerunning unchanged code will not repair it"
+          exit 1
+
+  healthy-control:
+    if: inputs.scenario == 'healthy'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate healthy control
+        run: echo "BuildPulse control scenario passed"
