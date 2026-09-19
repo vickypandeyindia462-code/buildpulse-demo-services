@@ -2,4 +2,4 @@
 
 
 def validate(token: str) -> bool:
-    return token.startswith("demo-")
+    return token.startswith("demo-") and bool(token.removeprefix("demo-"))
