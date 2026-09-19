@@ -1,0 +1,116 @@
+What is broken today:
+
+CI failures require manual investigation across many tools. Engineers jump between GitHub Actions logs, Jira, Confluence, repositories, and chat to understand one failure.
+Useful knowledge exists but is hard to find. Runbooks, architecture notes, onboarding guides, and historical incident resolutions are scattered and disconnected.
+Failure responses are often generic. Teams may simply rerun jobs or search broadly instead of getting a service-specific, evidence-backed next step.
+Context is lost during handoffs. Engineers repeatedly explain the same incident, service ownership, and remediation history to leads or teammates.
+New developers take longer to become productive. They must manually discover the right tools, entitlements, runbooks, and service contacts.
+Engineering leads lack a focused view of delivery risk. Jira priorities, failed pipelines, pull requests, service ownership, and risk signals are spread across separate views.
+AI answers may be difficult to trust. Ordinary chat can produce plausible advice without showing its evidence, source, or whether the answer came from a live model or fallback.
+Automation can be risky without controls. Retrying jobs or proposing code changes without sandbox validation, risk checks, auditability, and human approval can make incidents worse.
+
+Key Capabilities
+CI Failure Investigation
+
+Analyzes failed GitHub Actions jobs.
+Connects logs with service context, runbooks, Jira incidents, and Confluence knowledge.
+Recommends a specific, safe next step.
+Grounded Engineering Copilot
+
+Answers architecture, onboarding, ownership, tooling, and incident questions.
+Uses RAG with PostgreSQL and pgvector.
+Provides source references and shows whether the answer came from Claude or fallback evidence.
+Supervised Self-Healing
+
+Reproduces deterministic failures in an isolated sandbox.
+Applies and tests a controlled code fix.
+Uses risk and confidence gates before creating a draft pull request.
+Requires human approval and never merges automatically.
+Delivery Risk Management
+
+Combines Jira priorities, pull requests, failed pipelines, ownership, and dependencies.
+Gives engineering leads a focused view of work requiring attention.
+Provides deterministic pull-request risk analysis.
+Governed Automation
+
+Supports Observe, Supervised, and Constrained modes.
+Enforces repository allowlists, retry limits, risk thresholds, and human approval.
+Displays live health and provenance for GitHub, Jira, Confluence, Claude, PostgreSQL, and RAG.
+
+Technology Used
+AI model: Claude through Azure AI Foundry for failure analysis, Copilot responses, and remediation reasoning.
+Backend platform: Python, FastAPI, SQLAlchemy, and Uvicorn.
+Frontend: HTML, CSS, and JavaScript served by FastAPI.
+Database: Azure PostgreSQL with the pgvector extension.
+APIs: GitHub Actions/PR APIs, Jira Cloud REST API, Confluence API, and Azure AI Foundry Anthropic API.
+Data sources: GitHub CI logs and pull requests, Jira issues, Confluence pages, repository documentation, service catalogs, runbooks, architecture documents, and ownership records.
+Retrieval: RAG with vector similarity search, keyword search, and hybrid ranking.
+Automation tools: Git, isolated temporary checkouts, pytest sandbox validation, fine-grained GitHub tokens, and draft pull requests.
+Deployment: Windows Azure VM with a Python virtual environment and localhost Uvicorn service.
+
+Reusability
+Teams: SRE, DevOps, platform, security, data, and application teams.
+CI platforms: GitHub Actions, Azure DevOps, Jenkins, GitLab CI, and CircleCI.
+Knowledge systems: Jira, Confluence, Azure Boards, ServiceNow, SharePoint, and Notion.
+AI models: Claude, Azure OpenAI, OpenAI, Gemini, private, or local models.
+Automation: CI reruns, draft PRs, Jira updates, deployment approvals, rollbacks, and dependency fixes.
+Reusable components: connectors, RAG/pgvector search, risk scoring, sandbox validation, governance modes, audit trails, and role-based dashboards.
+
+User request
+    ↓
+FastAPI backend
+    ↓
+Collect GitHub, Jira, Confluence, and repository context
+    ↓
+PostgreSQL + pgvector hybrid retrieval
+    ↓
+Claude analysis with trusted tools
+    ↓
+Evidence-backed answer and recommendation
+    ↓
+Optional supervised retry or human-approved draft PR
+
+How BuildPulse Differs
+More than a chatbot: It combines AI chat with CI analysis, Jira, Confluence, GitHub, ownership, and delivery risk.
+Evidence-backed answers: Responses are grounded in approved engineering sources with citations and provenance.
+Service-aware context: It understands the selected service, dependencies, owners, runbooks, incidents, and failed job.
+Action-oriented workflow: It moves from failure detection to diagnosis, safe retry, sandbox validation, risk scoring, and draft PR.
+Human-controlled automation: Observe, Supervised, and Constrained modes prevent uncontrolled changes and require approval.
+One view for multiple roles: Developers, leads, and managers use the same trusted data for different decisions.
+Reusable across organizations: Services can be added through documentation, connectors, ownership data, and remediation recipes.
+Transparent resilience: It clearly shows whether output came from Claude, retrieval, or fallback logic when integrations fail.
+
+Business Impact
+Reduces investigation time: Brings CI logs, Jira, Confluence, repository docs, and ownership into one workflow.
+Recovers engineering capacity: Less time is spent searching, repeating context, and waiting for handoffs.
+Speeds incident response: Provides service-specific diagnosis and a safe next step.
+Improves onboarding: New developers can quickly find tools, entitlements, architecture, and owners.
+Improves delivery decisions: Leads see Jira priorities, failed pipelines, PR risk, dependencies, and service health together.
+Reduces automation risk: Sandbox testing, policy gates, human approval, and draft-only PRs prevent unsafe changes.
+Makes AI trustworthy: Shows sources, provider provenance, fallback status, and integration health.
+Scales knowledge across services: New services can be added through their documents, runbooks, CI data, incidents, and ownership records.
+
+Built and Demonstrated
+GitHub CI failure analysis with log-specific diagnosis.
+Grounded Copilot using repository, Jira, Confluence, and GitHub knowledge.
+PostgreSQL with pgvector and hybrid retrieval.
+Developer, Engineering Lead, and AI Operations workspaces.
+Jira, GitHub, and Confluence integration.
+PR risk and service ownership analysis.
+Observe, Supervised, and Constrained automation modes.
+One supervised GitHub Actions retry.
+Sandbox-based remediation validation.
+Draft PR workflow with human approval gates.
+Live status and AI/fallback provenance indicators.
+
+Described but Not Fully Built
+Continuous or scheduled knowledge synchronization.
+Production-grade authentication and role authorization.
+Azure Key Vault or centralized secret management.
+Complete Azure DevOps deployment pipeline.
+Broad automatic remediation recipes for every service and failure type.
+Fully validated live draft-PR scenario for the current synthetic fixture.
+Automatic merging or production deployment.
+Measured business savings; the $312,000 figure is illustrative only.
+Large-scale production rollout and multi-team governance.
+
