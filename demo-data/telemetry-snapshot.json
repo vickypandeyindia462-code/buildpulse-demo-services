@@ -1,0 +1,11 @@
+{
+  "generated_at": "2026-09-10T12:00:00Z",
+  "synthetic": true,
+  "window_minutes": 30,
+  "services": {
+    "loan-service": {"requests": 18420, "error_rate": 0.012, "latency_p95_ms": 287, "pool_utilisation": 0.71},
+    "payments-api": {"requests": 7210, "error_rate": 0.003, "latency_p95_ms": 192, "retry_rate": 0.018},
+    "api-gateway": {"requests": 38600, "error_rate": 0.004, "latency_p95_ms": 83, "trace_completeness": 0.996},
+    "identity-service": {"requests": 44210, "error_rate": 0.001, "latency_p95_ms": 64, "token_rejection_rate": 0.071}
+  }
+}

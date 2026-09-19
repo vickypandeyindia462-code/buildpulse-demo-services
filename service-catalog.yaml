@@ -1,6 +1,7 @@
-version: 1
+version: 2
 repository: buildpulse-demo-services
 environment: synthetic-demo
+data_classification: synthetic-only
 services:
   - id: loan-service
     name: Loan Service
@@ -10,7 +11,11 @@ services:
     backup_owner: Arjun Rao
     team: Lending Platform
     depends_on: [payments-api, identity-service]
+    api: /loan-service/docs
+    health: /loan-service/health
+    slo: {availability: 99.95, latency_p95_ms: 350}
     runbooks: [docs/runbooks/loan-service-recovery.md]
+    kb: [docs/kb/connection-pool-saturation.md]
   - id: payments-api
     name: Payments API
     path: payments-api
@@ -18,7 +23,12 @@ services:
     primary_owner: Dev Shah
     backup_owner: Kavya Thomas
     team: Payments Platform
-    depends_on: [api-gateway]
+    depends_on: []
+    api: /payments-api/docs
+    health: /payments-api/health
+    slo: {availability: 99.99, latency_p95_ms: 250}
+    runbooks: [docs/runbooks/payments-api-recovery.md]
+    kb: [docs/kb/idempotency-and-retries.md]
   - id: api-gateway
     name: API Gateway
     path: api-gateway
@@ -26,7 +36,12 @@ services:
     primary_owner: Jose Nair
     backup_owner: Priya Menon
     team: Developer Platform
-    depends_on: [identity-service]
+    depends_on: [loan-service, payments-api, identity-service]
+    api: /api-gateway/docs
+    health: /api-gateway/health
+    slo: {availability: 99.95, latency_p95_ms: 150}
+    runbooks: [docs/runbooks/api-gateway-recovery.md]
+    kb: [docs/kb/correlation-ids.md]
   - id: identity-service
     name: Identity Service
     path: identity-service
@@ -35,3 +50,8 @@ services:
     backup_owner: Nisha Kapoor
     team: Core Services
     depends_on: []
+    api: /identity-service/docs
+    health: /identity-service/health
+    slo: {availability: 99.99, latency_p95_ms: 120}
+    runbooks: [docs/runbooks/identity-service-recovery.md]
+    kb: [docs/kb/token-validation.md]

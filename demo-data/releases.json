@@ -1,0 +1,5 @@
+[
+  {"version":"24.1","released_at":"2026-07-10T08:00:00Z","services":["loan-service","api-gateway"],"change_failure":false,"synthetic":true},
+  {"version":"24.2","released_at":"2026-08-14T08:00:00Z","services":["payments-api","identity-service"],"change_failure":true,"incident":"INC-2415","synthetic":true},
+  {"version":"24.3","released_at":"2026-09-10T08:00:00Z","services":["loan-service","payments-api","api-gateway","identity-service"],"change_failure":false,"synthetic":true}
+]
