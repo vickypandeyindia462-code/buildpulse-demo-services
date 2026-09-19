@@ -1,6 +1,8 @@
 """Synthetic connection-pool configuration used for risk demonstrations."""
 
-MAX_CONNECTIONS = 40
+from src.config import CONNECTION_POOL_MAX
+
+MAX_CONNECTIONS = CONNECTION_POOL_MAX
 ACQUIRE_TIMEOUT_SECONDS = 2.0
 RETRY_LIMIT = 2
 
